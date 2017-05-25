@@ -1,0 +1,17 @@
+- name: 1 preinstall for python-{{ version }}
+  yum:
+    name: "@Development tools"
+    state: present
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - sqlite-devel
+    - readline-devel
+    - openssl-devel
+    - ncurses-devel
+    - zlib-devel
+    - bzip2-devel
+    - xz-devel
+    - gdbm-devel
+    - libpcap-devel

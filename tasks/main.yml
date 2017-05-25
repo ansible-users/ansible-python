@@ -1,0 +1,32 @@
+---
+# tasks file for python
+- name: Install libselinux-python.
+  package: name="libselinux-python" state="present"
+
+
+- name: check status of python-{{ version }}
+  stat:
+    path: "{{ python_exe }}"
+  register: python
+
+
+- name: check status of pip-{{ version }}
+  stat:
+    path: "/usr/local/bin/pip{{ version_short }}"
+  register: pip
+
+
+- include: "install-python.yml"
+  static: no
+  when: python.stat.exists == False
+
+
+- include: "install-pip.yml"
+  static: no
+  when: pip.stat.exists == False
+
+
+- name: yeah!.
+  debug:
+    msg: python{{ version }} was installed already. @see {{ python_dir }}
+  when: python.stat.exists == True

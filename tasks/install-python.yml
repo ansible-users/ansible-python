@@ -1,0 +1,53 @@
+- name: 1 preinstall for python-{{ version }}
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - gcc
+    - make
+
+
+- name: 2 preinstall for python-{{ version }}
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - sqlite-devel
+    - readline-devel
+    - openssl-devel
+    - ncurses-devel
+    - zlib-devel
+    - bzip2-devel
+    - xz-devel
+    - gdbm-devel
+    - libpcap-devel
+
+
+- name: download source of python-{{ version }}
+  get_url:
+    url: https://www.python.org/ftp/python/{{ version }}/{{ python_src_tar }}
+    dest: /usr/local/src/{{ python_src_tar  }}
+    validate_certs: no
+    checksum: "{{ checksum }}"
+
+
+- name: unarchive /usr/local/src/{{ python_src_tar }}
+  unarchive:
+    src: /usr/local/src/{{ python_src_tar }}
+    dest: /usr/local/src/
+    remote_src: True
+
+- name: compile and install python{{ version }}
+  shell: |
+    ./configure --prefix={{ python_dir }}
+    make && make install
+  args:
+    chdir: /usr/local/src/Python-{{ version }}
+    executable: /bin/bash
+
+
+- name: link to /usr/local/bin/python{{ version_short }}
+  file:
+    src: "{{ python_exe }}"
+    dest: "/usr/local/bin/python{{ version_short }}"
+    state: link

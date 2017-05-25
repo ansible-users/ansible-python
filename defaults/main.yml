@@ -1,0 +1,8 @@
+---
+# defaults file for python2
+version: 2.7.13
+version_short: "{{ version.split('.')[0] }}.{{ version.split('.')[1] }}"
+python_dir: /usr/local/opt/python{{ version }}
+python_exe: "{{ python_dir }}/bin/python{{ version_short }}"
+python_src_tar: Python-{{ version }}.tar.xz
+checksum: md5:53b43534153bb2a0363f08bae8b9d990
