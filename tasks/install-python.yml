@@ -1,17 +1,15 @@
-- name: 1 preinstall for python-{{ version }}
+- name: Install requirements for python-{{ version }}
   package:
     name: "{{ item }}"
     state: present
   with_items:
+    # compile
     - gcc
     - make
+    - automake
+    - autoconf
 
-
-- name: 2 preinstall for python-{{ version }}
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
+    # library
     - sqlite-devel
     - readline-devel
     - openssl-devel
