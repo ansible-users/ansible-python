@@ -1,16 +1,21 @@
-- name: download get-pip.py
+- name: Download get-pip.py
   get_url:
     url: https://bootstrap.pypa.io/get-pip.py
     dest: /usr/local/src/get-pip.py
     validate_certs: no
+  tags:
+    - download
 
 
-- name: execute get-pip.py
+- name: Execute get-pip.py
   shell: "{{ python_exe }} /usr/local/src/get-pip.py"
 
 
-- name: link to /usr/local/bin/pip{{ version_short }}
+- name: Link to {{ pip_link }}. force ? {{ 'yes' if reinstall else 'no' }}
   file:
     src: "{{ python_dir }}/bin/pip{{ version_short }}"
-    dest: "/usr/local/bin/pip{{ version_short }}"
+    dest: "{{ pip_link }}"
     state: link
+    force: "{{ 'yes' if reinstall else 'no' }}"
+  tags:
+    - link

@@ -3,7 +3,7 @@
     name: "{{ item }}"
     state: present
   with_items:
-    # compile
+    # Compile tool chain
     - gcc
     - make
     - automake
@@ -21,21 +21,23 @@
     - libpcap-devel
 
 
-- name: download source of python-{{ version }}
+- name: Download source of python-{{ version }}
   get_url:
     url: https://www.python.org/ftp/python/{{ version }}/{{ python_src_tar }}
     dest: /usr/local/src/{{ python_src_tar  }}
     validate_certs: no
     checksum: "{{ checksum }}"
+  tags:
+    - download
 
 
-- name: unarchive /usr/local/src/{{ python_src_tar }}
+- name: Extract source from /usr/local/src/{{ python_src_tar }} to /usr/local/src/
   unarchive:
     src: /usr/local/src/{{ python_src_tar }}
     dest: /usr/local/src/
     remote_src: True
 
-- name: compile and install python{{ version }}
+- name: Compile and install python{{ version }}
   shell: |
     ./configure --prefix={{ python_dir }}
     make && make install
@@ -44,8 +46,11 @@
     executable: /bin/bash
 
 
-- name: link to /usr/local/bin/python{{ version_short }}
+- name: Link to {{ python_link }}. force ? {{ 'yes' if reinstall else 'no' }}
   file:
     src: "{{ python_exe }}"
-    dest: "/usr/local/bin/python{{ version_short }}"
+    dest: "{{ python_link }}"
     state: link
+    force: "{{ 'yes' if reinstall else 'no' }}"
+  tags:
+    - link

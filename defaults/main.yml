@@ -6,3 +6,8 @@ python_dir: /usr/local/opt/python{{ version }}
 python_exe: "{{ python_dir }}/bin/python{{ version_short }}"
 python_src_tar: Python-{{ version }}.tar.xz
 checksum: md5:53b43534153bb2a0363f08bae8b9d990
+reinstall: false
+
+# executable file links.
+python_link: "/usr/local/bin/python{{ version_short }}"
+pip_link:    "/usr/local/bin/pip{{ version_short }}"
