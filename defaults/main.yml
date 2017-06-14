@@ -4,10 +4,50 @@ version: 2.7.13
 version_short: "{{ version.split('.')[0] }}.{{ version.split('.')[1] }}"
 python_dir: /usr/local/opt/python{{ version }}
 python_exe: "{{ python_dir }}/bin/python{{ version_short }}"
-python_src_tar: Python-{{ version }}.tar.xz
+pip_exe: "{{ python_dir }}/bin/pip{{ version_short }}"
+
 checksum: md5:53b43534153bb2a0363f08bae8b9d990
 reinstall: false
 
-# executable file links.
+# links of executable file.
+link: true
 python_link: "/usr/local/bin/python{{ version_short }}"
 pip_link:    "/usr/local/bin/pip{{ version_short }}"
+
+# source config
+source_url: https://www.python.org/ftp/python/{{ version }}/Python-{{ version }}.tar.xz
+source_tar: /usr/local/src/Python-{{ version }}.tar.xz
+
+require_packages:
+  RedHat:
+    # Compile tool chain
+    - gcc
+    - make
+    - automake
+    - autoconf
+
+    # library
+    - readline-devel
+    - sqlite-devel
+    - openssl-devel
+    - ncurses-devel
+    - zlib-devel
+    - bzip2-devel
+    - xz-devel
+    - gdbm-devel
+
+  Debian:
+    # Compile tool chain
+    - gcc
+    - make
+    - automake
+    - autoconf
+
+    # library
+    - libreadline-dev
+    - libsqlite3-dev
+    - libssl-dev
+    - libncurses5-dev
+    - zlib1g-dev
+    - libbz2-dev
+    - libgdbm-dev

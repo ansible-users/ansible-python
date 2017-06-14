@@ -3,7 +3,7 @@
 Python
 =========
 
-Install python form source.
+Install python form [source].
 
 Requirements
 ------------
@@ -14,9 +14,10 @@ Requirements
 Role Variables
 --------------
 
-* `version` : (e.g. 2.7.13, 3.6.1)
-* `python_dir` :  The prefix directory. default: "/usr/local/opt/python{{ version }}"
+* `version` : (e.g. `2.7.13`, `3.6.1`)
+* `python_dir` :  The prefix directory. default: `/usr/local/opt/python{{ version }}`
 * `reinstall`: Force the install whether or not python was installed.
+* `link`: link the executable file of python and pip to the `/usr/local/bin/python{{ short_version }}`, `/usr/local/bin/pip{{ short_version }}`
 
 
 Example Playbook
@@ -34,23 +35,25 @@ Check the result
 ----------------
 
 ```
-# links.a
+# links
 $ ls -hl /usr/local/bin/{python*,pip*}
---- /usr/local/bin/pip2.7 -> /usr/local/opt//bin/pip2.7
---- /usr/local/bin/pip3.4 -> /usr/local/opt//bin/pip3.4
---- /usr/local/bin/pip3.5 -> /usr/local/opt//bin/pip3.5
---- /usr/local/bin/pip3.6 -> /usr/local/opt/python3.6.1/bin/pip3.6
---- /usr/local/bin/python2.7 -> /usr/local/opt/python2.7.13/bin/python2.7
---- /usr/local/bin/python3.4 -> /usr/local/opt/python3.4.6/bin/python3.4
---- /usr/local/bin/python3.5 -> /usr/local/opt/python3.5.3/bin/python3.5
---- /usr/local/bin/python3.6 -> /usr/local/opt/python3.6.1/bin/python3.6
+[cupen@tank]$ ls -hl /usr/local/bin/{python*,pip*}
+lrwxrwxrwx. 1 root root  /usr/local/bin/pip2.7 -> /usr/local/opt/python2.7.13/bin/pip2.7
+lrwxrwxrwx. 1 root root  /usr/local/bin/pip3.4 -> /usr/local/opt/python3.4.6/bin/pip3.4
+lrwxrwxrwx. 1 root root  /usr/local/bin/pip3.5 -> /usr/local/opt/python3.5.3/bin/pip3.5
+lrwxrwxrwx. 1 root root  /usr/local/bin/pip3.6 -> /usr/local/opt/python3.6.1/bin/pip3.6
+lrwxrwxrwx. 1 root root  /usr/local/bin/python2.7 -> /usr/local/opt/python2.7.13/bin/python2.7
+lrwxrwxrwx. 1 root root  /usr/local/bin/python3.4 -> /usr/local/opt/python3.4.6/bin/python3.4
+lrwxrwxrwx. 1 root root  /usr/local/bin/python3.5 -> /usr/local/opt/python3.5.3/bin/python3.5
+lrwxrwxrwx. 1 root root  /usr/local/bin/python3.6 -> /usr/local/opt/python3.6.1/bin/python3.6
 
-# install dir.
-$ ls -hl /usr/local/opt/
---- python2.7.13
---- python3.4.6
---- python3.5.3
---- python3.6.1
+
+# install dir
+[cupen@tank]$ ls -l /usr/local/opt/
+drwxr-xr-x. 7 root root  python2.7.13
+drwxr-xr-x. 6 root root  python3.4.6
+drwxr-xr-x. 6 root root  python3.5.3
+drwxr-xr-x. 6 root root  python3.6.1
 ```
 
 
@@ -78,4 +81,8 @@ TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 Author Information
 ------------------
 
-cupen@foxmail.com
+智慧与美貌的并重，英雄与侠义的化身！
+
+<cupen@foxmail.com>
+
+[source]: https://www.python.org/downloads/

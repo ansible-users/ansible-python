@@ -3,37 +3,22 @@
     name: "{{ item }}"
     state: present
   with_items:
-    # Compile tool chain
-    - gcc
-    - make
-    - automake
-    - autoconf
-
-    # library
-    - sqlite-devel
-    - readline-devel
-    - openssl-devel
-    - ncurses-devel
-    - zlib-devel
-    - bzip2-devel
-    - xz-devel
-    - gdbm-devel
-    - libpcap-devel
+    - "{{ require_packages[ansible_os_family] }}"
 
 
 - name: Download source of python-{{ version }}
   get_url:
-    url: https://www.python.org/ftp/python/{{ version }}/{{ python_src_tar }}
-    dest: /usr/local/src/{{ python_src_tar  }}
+    url: "{{ source_url }}"
+    dest: "{{ source_tar }}"
     validate_certs: no
     checksum: "{{ checksum }}"
   tags:
     - download
 
 
-- name: Extract source from /usr/local/src/{{ python_src_tar }} to /usr/local/src/
+- name: Extract source from {{ source_tar }} to /usr/local/src/
   unarchive:
-    src: /usr/local/src/{{ python_src_tar }}
+    src: "{{ source_tar }}"
     dest: /usr/local/src/
     remote_src: True
 
@@ -44,13 +29,3 @@
   args:
     chdir: /usr/local/src/Python-{{ version }}
     executable: /bin/bash
-
-
-- name: Link to {{ python_link }}. force ? {{ 'yes' if reinstall else 'no' }}
-  file:
-    src: "{{ python_exe }}"
-    dest: "{{ python_link }}"
-    state: link
-    force: "{{ 'yes' if reinstall else 'no' }}"
-  tags:
-    - link

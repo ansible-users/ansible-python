@@ -9,13 +9,3 @@
 
 - name: Execute get-pip.py
   shell: "{{ python_exe }} /usr/local/src/get-pip.py"
-
-
-- name: Link to {{ pip_link }}. force ? {{ 'yes' if reinstall else 'no' }}
-  file:
-    src: "{{ python_dir }}/bin/pip{{ version_short }}"
-    dest: "{{ pip_link }}"
-    state: link
-    force: "{{ 'yes' if reinstall else 'no' }}"
-  tags:
-    - link

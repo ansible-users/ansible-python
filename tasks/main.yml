@@ -14,7 +14,7 @@
 
 - name: Check status of pip-{{ version }}
   stat:
-    path: "/usr/local/bin/pip{{ version_short }}"
+    path: "{{ pip_exe }}"
   register: pip
   tags:
     - link
@@ -33,6 +33,11 @@
 - include: "install-pip.yml"
   static: no
   when: pip.stat.exists == False or reinstall
+
+
+- include: "link.yml"
+  static: no
+  when: link == True
 
 
 - name: Finish.
