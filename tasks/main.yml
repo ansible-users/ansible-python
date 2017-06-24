@@ -10,6 +10,7 @@
   register: python
   tags:
     - link
+    - download
 
 
 - name: Check status of pip-{{ version }}
@@ -18,6 +19,7 @@
   register: pip
   tags:
     - link
+    - download
 
 
 - name: Force to install python-{{ version }} ? {{ "yes" if reinstall else "no" }}

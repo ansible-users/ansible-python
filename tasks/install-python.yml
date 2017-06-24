@@ -1,17 +1,10 @@
-- name: Install requirements for python-{{ version }}
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - "{{ require_packages[ansible_os_family] }}"
-
-
-- name: Download source of python-{{ version }}
+---
+- name: Download source of python-{{ version }} from {{ source_url }} to {{ source_tar }}
   get_url:
     url: "{{ source_url }}"
     dest: "{{ source_tar }}"
     validate_certs: no
-    checksum: "{{ checksum }}"
+    checksum: "{{ checksum_expect }}"
   tags:
     - download
 
@@ -21,6 +14,15 @@
     src: "{{ source_tar }}"
     dest: /usr/local/src/
     remote_src: True
+
+
+- name: Install requirements for python-{{ version }}
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ require_packages[ansible_os_family] }}"
+
 
 - name: Compile and install python{{ version }}
   shell: |
