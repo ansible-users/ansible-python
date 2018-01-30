@@ -2,6 +2,7 @@
 # tasks file for python
 - name: Install libselinux-python.
   package: name="libselinux-python" state="present"
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
 
 - name: Check status of python-{{ version }}

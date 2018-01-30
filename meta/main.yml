@@ -2,7 +2,7 @@ galaxy_info:
   author: cupen
   description: Install python form source.
   company: freer
-  issue_tracker_url: https://github.com/cupen/ansible-role-python/issues
+  issue_tracker_url: https://github.com/ansible-users/ansible-python/issues
   license: WTFPL
   min_ansible_version: 2.0
   github_branch: master
