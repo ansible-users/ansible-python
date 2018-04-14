@@ -1,5 +1,5 @@
 ---
-# defaults file for python2
+# defaults file for python
 version: 3.6.4
 version_short: "{{ version.split('.')[0] }}.{{ version.split('.')[1] }}"
 python_dir: /usr/local/opt/python{{ version }}
@@ -21,6 +21,7 @@ source_tar: /usr/local/src/Python-{{ version }}.tar.xz
 
 checksum_defaults:
   # python3.6
+  3.6.5: md5:9f49654a4d6f733ff3284ab9d227e9fd
   3.6.4: md5:1325134dd525b4a2c3272a1a0214dd54
   3.6.3: md5:b9c2c36c33fb89bda1fefd37ad5af9be
   3.6.2: md5:2c68846471994897278364fc18730dd9
@@ -28,6 +29,7 @@ checksum_defaults:
   3.6.0: md5:82b143ebbf4514d7e05876bed7a6b1f5
 
   # python3.5
+  3.5.5: md5:f3763edf9824d5d3a15f5f646083b6e0
   3.5.4: md5:fb2780baa260b4e51cbea814f111f303
   3.5.3: md5:57d1f8bfbabf4f2500273fb0706e6f21
   3.5.2: md5:8906efbacfcdc7c3c9198aeefafd159e
@@ -35,6 +37,7 @@ checksum_defaults:
   3.5.0: md5:d149d2812f10cbe04c042232e7964171
 
   # python3.4
+  3.4.8: md5:15c44931f2274bfe928d53e0b675a4d8
   3.4.7: md5:fba7c150dd2366f9523fa13b88736dea
 
   # python2.7

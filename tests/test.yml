@@ -1,45 +1,13 @@
 ---
 
-- name: Test checksum
-  hosts: localtest
-  connection: paramiko
-  tasks:
-    - name: Show version
-      debug: var=version
-      with_items:
-        - "{{ version_list }}"
-
-    - name: "Validate checksum."
-      get_url:
-        url: "{{ source_url }}"
-        dest: "/tmp/Python-{{ version }}"
-        validate_certs: no
-        checksum: "{{ checksum_expect }}"
-        # checksum: "md5:692b4fc3a2ba0d54d1495d4ead5b0b5c"
-      vars:
-        version: "{{ item }}"
-        source_url: http://127.0.0.1:8000/Python-{{ version }}.tar.xz
-      with_items:
-        - "{{ version_list }}"
-
-  vars_files:
-    - ../defaults/main.yml
-  vars:
-    version_list:
-      - 2.7.13
-      - 3.4.6
-      - 3.5.3
-      - 3.6.1
-
-
 - name: Test install python.
-  hosts: localtest
+  hosts: "{{ host }}"
   connection: paramiko
   roles:
-    - { role: ../../python, version: "2.7.13", python_dir: "/usr/local/opt/python{{ version }}" }
-    - { role: ../../python, version: "3.4.6",  python_dir: "/usr/local/opt/python{{ version }}" }
-    - { role: ../../python, version: "3.5.3",  python_dir: "/usr/local/opt/python{{ version }}" }
-    - { role: ../../python, version: "3.6.1",  python_dir: "/usr/local/opt/python{{ version }}" }
+    - { role: ../ansible-python, version: "2.7.14", checksum: "md5:1f6db41ad91d9eb0a6f0c769b8613c5b", link: false }
+    - { role: ../ansible-python, version: "3.4.8", checksum: "md5:15c44931f2274bfe928d53e0b675a4d8", link: false }
+    - { role: ../ansible-python, version: "3.5.5", checksum: "md5:f3763edf9824d5d3a15f5f646083b6e0", link: false }
+    - { role: ../ansible-python, version: "3.6.5", checksum: "md5:9f49654a4d6f733ff3284ab9d227e9fd", link: false }
 
-  vars:
-    # source_url: http://127.0.0.1:8000/Python-{{ version }}.tar.xz
+  # vars:
+  #   # source_url: http://127.0.0.1:8000/Python-{{ version }}.tar.xz

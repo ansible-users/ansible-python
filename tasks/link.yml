@@ -5,6 +5,7 @@
     dest: "{{ python_link }}"
     state: link
     force: "{{ 'yes' if reinstall else 'no' }}"
+  when: link == true
   tags:
     - link
 
@@ -15,5 +16,6 @@
     dest: "{{ pip_link }}"
     state: link
     force: "{{ 'yes' if reinstall else 'no' }}"
+  when: link == true
   tags:
     - link
