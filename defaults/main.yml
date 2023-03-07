@@ -20,6 +20,12 @@ source_url: https://www.python.org/ftp/python/{{ version }}/Python-{{ version }}
 source_tar: /usr/local/src/Python-{{ version }}.tar.xz
 
 checksum_defaults:
+  # python3.11
+  3.11.2: a957cffb58a89303b62124896881950b
+
+  # python3.10
+  3.10.10: 7bf85df71bbe7f95e5370b983e6ae684
+  
   # python3.6
   3.6.5: md5:9f49654a4d6f733ff3284ab9d227e9fd
   3.6.4: md5:1325134dd525b4a2c3272a1a0214dd54

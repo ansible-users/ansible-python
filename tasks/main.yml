@@ -2,7 +2,7 @@
 # tasks file for python
 - name: Install libselinux-python.
   package: name="libselinux-python" state="present"
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  when: ansible_facts['distribution'] == 'RedHat' 
 
 
 - name: Check status of python-{{ version }}
@@ -28,18 +28,15 @@
   when: python.stat.exists == True
 
 
-- include: "install-python.yml"
-  static: no
+- include_tasks: "install-python.yml"
   when: python.stat.exists == False or reinstall
 
 
-- include: "install-pip.yml"
-  static: no
+- include_tasks: "install-pip.yml"
   when: pip.stat.exists == False or reinstall
 
 
-- include: "link.yml"
-  static: no
+- include_tasks: "link.yml"
   when: link == True
 
 
