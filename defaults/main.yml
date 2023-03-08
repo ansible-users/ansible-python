@@ -73,6 +73,8 @@ require_packages:
     - bzip2-devel
     - xz-devel
     - gdbm-devel
+    - libffi-devel
+    - openssl11-devel
 
   Debian:
     # Compile tool chain
@@ -89,3 +91,6 @@ require_packages:
     - zlib1g-dev
     - libbz2-dev
     - libgdbm-dev
+    - libffi-dev
+    - openssl11-dev
+

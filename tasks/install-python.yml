@@ -36,7 +36,8 @@
 
 - name: Compile and install python{{ version }}
   shell: |
-    ./configure --prefix={{ python_dir }}
+    ./configure --prefix={{ python_dir }} # --with-openssl=/usr/include/openssl11  --with-openssl-rpath=auto
+
     make && make install
   args:
     chdir: /usr/local/src/Python-{{ version }}
