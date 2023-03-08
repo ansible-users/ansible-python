@@ -7,7 +7,7 @@
 
 - name: Check status of python-{{ version }}
   stat:
-    path: "{{ python_exe }}"
+    path: "{{ python_bin }}"
   register: python
   tags:
     - link
@@ -16,7 +16,7 @@
 
 - name: Check status of pip-{{ version }}
   stat:
-    path: "{{ pip_exe }}"
+    path: "{{ pip_bin }}"
   register: pip
   tags:
     - link

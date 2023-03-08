@@ -1,13 +1,22 @@
 ---
-
-- name: Test install python.
-  hosts: "{{ host }}"
-  connection: paramiko
+- name: Bring up docker containers
+  hosts: localhost
+  gather_facts: false
+  vars:
+    inventory:
+      - name: hello
+        image: "chrismeyers/centos7"
   roles:
-    - { role: ../ansible-python, version: "2.7.14", checksum: "md5:1f6db41ad91d9eb0a6f0c769b8613c5b", link: false }
-    - { role: ../ansible-python, version: "3.4.8", checksum: "md5:15c44931f2274bfe928d53e0b675a4d8", link: false }
-    - { role: ../ansible-python, version: "3.5.5", checksum: "md5:f3763edf9824d5d3a15f5f646083b6e0", link: false }
-    - { role: ../ansible-python, version: "3.6.5", checksum: "md5:9f49654a4d6f733ff3284ab9d227e9fd", link: false }
+    - role: provision_docker
+      provision_docker_inventory: "{{ inventory }}"
 
-  # vars:
-  #   # source_url: http://127.0.0.1:8000/Python-{{ version }}.tar.xz
+
+- name: Run install python
+  hosts: docker_containers
+  vars:
+    python_source_url: http://127.0.0.1:8000/Python-{{ version }}.tar.xz
+  roles:
+    - { role: ../../ansible-python, version: "3.10.0", checksum: "md5:3e7035d272680f80e3ce4e8eb492d580", link: false }
+    - { role: ../../ansible-python, version: "3.9.7", checksum: "md5:fddb060b483bc01850a3f412eea1d954", link: false }
+    - { role: ../../ansible-python, version: "3.8.12", checksum: "md5:9dd8f82e586b776383c82e27923f8795", link: false }
+    - { role: ../../ansible-python, version: "3.7.12", checksum: "md5:352ea082224121a8b7bc4d6d06e5de39", link: false }

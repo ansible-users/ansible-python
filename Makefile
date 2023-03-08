@@ -8,3 +8,6 @@ install: clean
 clean:
 	rm -fr $(install_dir)
 
+
+test:
+	cd tests && ansible-playbook test.yml

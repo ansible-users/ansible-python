@@ -1,10 +1,10 @@
 ---
-# defaults file for python
-version: 3.6.4
+# version and path
+version: 3.6.8
 version_short: "{{ version.split('.')[0] }}.{{ version.split('.')[1] }}"
 python_dir: /usr/local/opt/python{{ version }}
-python_exe: "{{ python_dir }}/bin/python{{ version_short }}"
-pip_exe: "{{ python_dir }}/bin/pip{{ version_short }}"
+python_bin: "{{ python_dir }}/bin/python{{ version_short }}"
+pip_bin: "{{ python_dir }}/bin/pip{{ version_short }}"
 
 checksum: null
 checksum_expect: "{{ checksum | default(checksum_defaults[version]) }}"
@@ -15,9 +15,10 @@ link: true
 python_link: "/usr/local/bin/python{{ version_short }}"
 pip_link:    "/usr/local/bin/pip{{ version_short }}"
 
-# source config
-source_url: https://www.python.org/ftp/python/{{ version }}/Python-{{ version }}.tar.xz
-source_tar: /usr/local/src/Python-{{ version }}.tar.xz
+# pythn source 
+python_source_url_default: https://www.python.org/ftp/python/{{ version }}/Python-{{ version }}.tar.xz
+python_source_url: null
+python_source_local: /usr/local/src/Python-{{ version }}.tar.xz
 
 checksum_defaults:
   # python3.11
@@ -25,7 +26,11 @@ checksum_defaults:
 
   # python3.10
   3.10.10: 7bf85df71bbe7f95e5370b983e6ae684
-  
+
+  3.9.7:  md5:fddb060b483bc01850a3f412eea1d954
+  3.8.12: md5:9dd8f82e586b776383c82e27923f8795
+  3.7.12: md5:352ea082224121a8b7bc4d6d06e5de39
+
   # python3.6
   3.6.5: md5:9f49654a4d6f733ff3284ab9d227e9fd
   3.6.4: md5:1325134dd525b4a2c3272a1a0214dd54

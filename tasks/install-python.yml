@@ -1,27 +1,37 @@
 ---
-- name: Download source of python-{{ version }} from {{ source_url }} to {{ source_tar }}
+- name: Download python-{{ version }} source from {{ python_source_url }} to {{ python_source_local }}
   get_url:
-    url: "{{ source_url }}"
-    dest: "{{ source_tar }}"
+    url: "{{ python_source_url | default(python_source_url_default, true) }}"
+    dest: "{{ python_source_local }}"
     validate_certs: no
     checksum: "{{ checksum_expect }}"
   tags:
     - download
 
 
-- name: Extract source from {{ source_tar }} to /usr/local/src/
+- name: Extract source from {{ python_source_local }} to /usr/local/src/
   unarchive:
-    src: "{{ source_tar }}"
+    src: "{{ python_source_local }}"
     dest: /usr/local/src/
     remote_src: True
+
+
+- name: Install requirements for python-{{ version }}
+  dnf:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - "{{ require_packages[ansible_os_family] }}"
+  when: ansible_distribution == 'Alibaba'
 
 
 - name: Install requirements for python-{{ version }}
   package:
     name: "{{ item }}"
     state: present
-  with_items:
+  loop:
     - "{{ require_packages[ansible_os_family] }}"
+  when: ansible_distribution != 'Alibaba'
 
 
 - name: Compile and install python{{ version }}
